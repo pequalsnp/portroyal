@@ -2,10 +2,11 @@ React = require 'React'
 ReactDOM = require 'react-dom'
 
 DirectoryChooser = require './components/cjsx/DirectoryChooser.cjsx'
+SignupForm = require './components/cjsx/SignupForm.cjsx'
 
 render = ->
   ReactDOM.render(
-    <DirectoryChooser startDir={"/"} dataKey={"testDirChooser"}/>,
+    <SignupForm />,
     document.getElementById("app")
   )
 
