@@ -64,6 +64,7 @@ class UserAuthController @Inject()(
     LoginUserForm.form.bind(request.body).fold(
       formWithErrors => Future.successful(BadRequest(formWithErrors.errorsAsJson)),
       validatedForm => {
+        println(validatedForm)
         val credentials = Credentials(validatedForm.userName, validatedForm.password)
         credentialsProvider.authenticate(credentials).flatMap { loginInfo: LoginInfo =>
           userService.retrieve(loginInfo).flatMap {

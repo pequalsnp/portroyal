@@ -1,6 +1,6 @@
 package stores
 
-import com.google.inject.Inject
+import com.google.inject.{Singleton, Inject}
 import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.api.util.PasswordInfo
 import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
@@ -8,13 +8,14 @@ import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
 import scala.collection.mutable
 import scala.concurrent.Future
 
-/**
-  * Created by kyles on 4/16/2016.
-  */
+@Singleton
 class InMemoryPasswordAuthInfoStore @Inject()() extends DelegableAuthInfoDAO[PasswordInfo] {
   val store = mutable.Map.empty[LoginInfo, PasswordInfo]
 
   override def find(loginInfo: LoginInfo): Future[Option[PasswordInfo]] = {
+    println(store)
+    println(loginInfo)
+    print(store.get(loginInfo))
     Future.successful(store.get(loginInfo))
   }
 

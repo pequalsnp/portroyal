@@ -6,16 +6,20 @@ AppDispatcher = require '../AppDispatcher.coffee'
 Constants = require '../constants/Constants.coffee'
 
 CHANGE_EVENT = '_change_event'
-_loginInfo = {}
+_displayName = undefined
+_jwt = undefined
 
 LoginInfoStore = assign({}, EventEmitter.prototype,
   getDisplayName: ->
-    _loginInfo._displayName
+    _displayName
 
   getJWT: ->
-    _loginInfo._jwt
+    _jwt
 
-  emitChange: (dataKey) ->
+  isLoggedIn: ->
+    return !!_jwt
+
+  emitChange: ->
     this.emit(CHANGE_EVENT)
 
   addChangeListener: (callback) ->
@@ -28,11 +32,14 @@ LoginInfoStore = assign({}, EventEmitter.prototype,
 AppDispatcher.register( (action) ->
   switch action.actionType
     when Constants.LOGIN_USER
-      _loginInfo =
-        _jwt: action.jwt
-        _displayName: action.displayName
-      console.log()
-      LoginInfoStore.emitChange(action.dataKey)
+      _jwt = action.jwt
+      _displayName = action.displayName
+      LoginInfoStore.emitChange()
+      break
+    when Constants.LOGOUT_USER
+      _jwt = undefined
+      _displayName = undefined
+      LoginInfoStore.emitChange()
       break
     else
       # do nothing on other events

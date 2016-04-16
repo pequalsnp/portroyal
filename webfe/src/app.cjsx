@@ -18,6 +18,7 @@ render = ->
       <Route path="/" component={NavHeader}>
         <IndexRoute component={Home}/>
         <Route path="/login" component={LoginForm} />
+        <Route path="/signup" component={SignupForm} />
       </Route>
     </Router>,
     document.getElementById("app")

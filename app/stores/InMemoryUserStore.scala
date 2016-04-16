@@ -1,11 +1,13 @@
 package stores
 
+import com.google.inject.Singleton
 import com.mohiva.play.silhouette.api.LoginInfo
 import models.User
 
 import scala.collection.mutable
 import scala.concurrent.Future
 
+@Singleton
 class InMemoryUserStore extends UserStore {
   val users = mutable.Map.empty[LoginInfo, User]
 

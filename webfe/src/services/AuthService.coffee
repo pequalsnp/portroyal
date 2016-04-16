@@ -28,5 +28,7 @@ AuthService =
       LoginAction.loginUser(data.jwt, data.displayName)
     )
 
+  logout: ->
+    LoginAction.logout()
 
 module.exports = AuthService

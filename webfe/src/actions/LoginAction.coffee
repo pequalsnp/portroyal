@@ -1,6 +1,6 @@
 AppDispatcher = require '../AppDispatcher.coffee'
 Constants = require '../constants/Constants.coffee'
-bowserHistory = require('react-router').browserHistory
+browserHistory = require('react-router').browserHistory
 
 LoginAction =
   loginUser: (jwt, displayName) ->
@@ -10,5 +10,11 @@ LoginAction =
       jwt: jwt
       displayName: displayName
     )
+
+  logout: ->
+    AppDispatcher.dispatch(
+      actionType: Constants.LOGOUT_USER
+    )
+    browserHistory.push("/login")
 
 module.exports = LoginAction
