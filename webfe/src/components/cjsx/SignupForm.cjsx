@@ -1,5 +1,11 @@
 React = require 'react'
 
+Button = require 'react-bootstrap/lib/Button'
+Col = require 'react-bootstrap/lib/Col'
+Grid = require 'react-bootstrap/lib/Grid'
+Input = require 'react-bootstrap/lib/Input'
+Row = require 'react-bootstrap/lib/Row'
+
 SignupForm = React.createClass(
   getInitialState: ->
     username: "Username"
@@ -32,27 +38,36 @@ SignupForm = React.createClass(
     submitEvent.preventDefault()
 
   render: ->
-    <form onSubmit={this._handleSubmit}>
-      <input
-        id="username"
-        type="text"
-        value={this.state.username}
-        onChange={this._handleChange}
-      />
-      <input
-        id="password"
-        type="password"
-        value={this.state.password}
-        onChange={this._handleChange}
-      />
-      <input
-        id="confirmpassword"
-        type="password"
-        value={this.state.confirmpassword}
-        onChange={this._handleChange}
-      />
-      <button type="submit" disabled={!this._valid()}>Submit</button>
-    </form>
+    <Grid>
+      <form onSubmit={this._handleSubmit}>
+        <Row>
+          <Col xs={6} xsOffset={3}>
+            <Input
+              label="Username"
+              id="username"
+              type="text"
+              value={this.state.username}
+              onChange={this._handleChange}
+            />
+            <Input
+              label="Password"
+              id="password"
+              type="password"
+              value={this.state.password}
+              onChange={this._handleChange}
+            />
+            <Input
+              label="Confirm Password"
+              id="confirmpassword"
+              type="password"
+              value={this.state.confirmpassword}
+              onChange={this._handleChange}
+            />
+            <Button bsStyle="success" type="submit" disabled={!this._valid()}>Submit</Button>
+          </Col>
+        </Row>
+      </form>
+    </Grid>
 )
 
 module.exports = SignupForm
