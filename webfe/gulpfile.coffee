@@ -23,4 +23,7 @@ gulp.task 'compile', ->
     .pipe(grename('app.js'))
     .pipe(gulp.dest(paths.jsout))
 
+gulp.task 'watch', ['compile'], ->
+  gulp.watch(['src/**/*.cjsx', 'src/**/*.coffee'], ['compile'])
+
 gulp.task 'default', ['compile']

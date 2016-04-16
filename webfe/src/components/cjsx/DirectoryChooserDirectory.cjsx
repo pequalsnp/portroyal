@@ -1,4 +1,4 @@
-React = require 'React'
+React = require 'react'
 
 ListDirectoryAction = require '../../actions/ListDirectoryAction.coffee'
 DirectoryContentsStore = require '../../stores/DirectoryContentsStore.coffee'

@@ -6,17 +6,20 @@ Grid = require 'react-bootstrap/lib/Grid'
 Input = require 'react-bootstrap/lib/Input'
 Row = require 'react-bootstrap/lib/Row'
 
+AuthService = require '../../services/AuthService.coffee'
+
 SignupForm = React.createClass(
   getInitialState: ->
-    username: "Username"
+    userName: ""
+    displayName: ""
     password: ""
     confirmPassword: ""
 
   _valid: ->
-    if (!this.state.username || !this.state.password || !this.state.confirmPassword)
+    if (!this.state.displayName || !this.state.userName || !this.state.password || !this.state.confirmPassword)
       return false
 
-    if (this.state.username.length == 0 || this.state.password.length == 0 || this.state.confirmPassword.length == 0)
+    if (this.state.displayName.length == 0 || this.state.userName.length == 0 || this.state.password.length == 0 || this.state.confirmPassword.length == 0)
       return false
 
     if (this.state.password != this.state.confirmPassword)
@@ -25,28 +28,36 @@ SignupForm = React.createClass(
     return true
 
   _handleChange: (changeEvent) ->
-    if (changeEvent.target.id == "username")
-      this.setState({username: changeEvent.target.value})
+    if (changeEvent.target.id == "userName")
+      this.setState({userName: changeEvent.target.value})
+    else if (changeEvent.target.id == "displayName")
+      this.setState({displayName: changeEvent.target.value})
     else if (changeEvent.target.id == "password")
       this.setState({password: changeEvent.target.value})
-    else if (changeEvent.target.id == "confirmpassword")
+    else if (changeEvent.target.id == "confirmPassword")
       this.setState({confirmPassword: changeEvent.target.value})
 
   _handleSubmit: (submitEvent) ->
-    if (!this._valid())
-      console.log("INVALID")
     submitEvent.preventDefault()
+    AuthService.createUser(this.state.userName, this.state.password, this.state.displayName)
 
   render: ->
     <Grid>
-      <form onSubmit={this._handleSubmit}>
+      <form>
         <Row>
           <Col xs={6} xsOffset={3}>
             <Input
-              label="Username"
-              id="username"
+              label="Display Name"
+              id="displayName"
               type="text"
-              value={this.state.username}
+              value={this.state.displayName}
+              onChange={this._handleChange}
+            />
+            <Input
+              label="Username"
+              id="userName"
+              type="text"
+              value={this.state.userName}
               onChange={this._handleChange}
             />
             <Input
@@ -58,12 +69,12 @@ SignupForm = React.createClass(
             />
             <Input
               label="Confirm Password"
-              id="confirmpassword"
+              id="confirmPassword"
               type="password"
-              value={this.state.confirmpassword}
+              value={this.state.confirmPassword}
               onChange={this._handleChange}
             />
-            <Button bsStyle="success" type="submit" disabled={!this._valid()}>Submit</Button>
+            <Button bsStyle="success" type="submit" disabled={!this._valid()} onClick={this._handleSubmit}>Submit</Button>
           </Col>
         </Row>
       </form>

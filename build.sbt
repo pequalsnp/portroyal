@@ -13,6 +13,7 @@ libraryDependencies ++= Seq(
   "com.iheart" %% "ficus" % "1.2.0",
   "com.mohiva" %% "play-silhouette" % "4.0.0-BETA4",
   "com.mohiva" %% "play-silhouette-password-bcrypt" % "4.0.0-BETA4",
+  "com.mohiva" %% "play-silhouette-persistence" % "4.0.0-BETA4",
   "net.codingwell" %% "scala-guice" % "4.0.1",
   jdbc,
   cache,
