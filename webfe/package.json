@@ -31,6 +31,7 @@
     "lodash": "^4.10.0",
     "object-assign": "^4.0.1",
     "react": "^15.0.1",
+    "react-bootstrap": "^0.28.5",
     "react-dom": "^15.0.1",
     "then-request": "^2.2.0"
   }
