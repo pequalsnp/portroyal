@@ -29,17 +29,18 @@ NavHeader = React.createClass(
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-          <IndexLink to="/">Port Royal</IndexLink>
+            <IndexLink to="/">Port Royal</IndexLink>
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <LinkContainer to='/login' activeStyle={{active: true}}><NavItem>Login</NavItem></LinkContainer>
-          <LinkContainer to='/signup' activeStyle={{active: true}}><NavItem>SignUp</NavItem></LinkContainer>
+          <NavDropdown title="TV Shows" id="tv-shows-dropdown">
+            <LinkContainer to='/add_tv_show'><MenuItem>Add Show</MenuItem></LinkContainer>
+          </NavDropdown>
         </Nav>
           {
             if (this.state.loggedInUserDisplayName && this.state.loggedInUserDisplayName.length > 0)
               <Nav pullRight>
-                <NavDropdown eventKey={3} title={LoginInfoStore.getDisplayName()} id="user-dropdown">
+                <NavDropdown title={LoginInfoStore.getDisplayName()} id="user-dropdown">
                   <MenuItem onClick={AuthService.logout}>Logout</MenuItem>
                 </NavDropdown>
               </Nav>

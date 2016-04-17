@@ -3,6 +3,7 @@ package controllers
 import java.util.UUID
 import javax.inject.Inject
 
+import com.google.inject.Singleton
 import com.mohiva.play.silhouette.api.{LoginInfo, Silhouette}
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.util.{Credentials, PasswordHasher}
@@ -16,6 +17,7 @@ import services.UserService
 
 import scala.concurrent.{Future, ExecutionContext}
 
+@Singleton
 class UserAuthController @Inject()(
   val messagesApi: MessagesApi,
   silhouette: Silhouette[SilhouetteEnvironment],
@@ -64,7 +66,6 @@ class UserAuthController @Inject()(
     LoginUserForm.form.bind(request.body).fold(
       formWithErrors => Future.successful(BadRequest(formWithErrors.errorsAsJson)),
       validatedForm => {
-        println(validatedForm)
         val credentials = Credentials(validatedForm.userName, validatedForm.password)
         credentialsProvider.authenticate(credentials).flatMap { loginInfo: LoginInfo =>
           userService.retrieve(loginInfo).flatMap {

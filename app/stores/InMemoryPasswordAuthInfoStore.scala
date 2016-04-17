@@ -13,9 +13,6 @@ class InMemoryPasswordAuthInfoStore @Inject()() extends DelegableAuthInfoDAO[Pas
   val store = mutable.Map.empty[LoginInfo, PasswordInfo]
 
   override def find(loginInfo: LoginInfo): Future[Option[PasswordInfo]] = {
-    println(store)
-    println(loginInfo)
-    print(store.get(loginInfo))
     Future.successful(store.get(loginInfo))
   }
 
